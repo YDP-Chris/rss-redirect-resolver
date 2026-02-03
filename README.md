@@ -1,81 +1,138 @@
 # RSS Redirect Resolver
 
-A simple web tool that resolves Google News RSS redirect URLs to their original article sources. Perfect for automation workflows, data scraping, and bypassing encoded redirect links.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YDP-Chris/rss-redirect-resolver)
 
-## 🚀 Features
+**Stop wrestling with RSS redirect URLs.** Instantly decode Google News RSS feeds and resolve redirect URLs to their original article sources. Perfect for automation workflows and data scraping.
 
-- **Single URL Resolution**: Decode individual Google News redirect URLs
-- **RSS Feed Processing**: Parse entire RSS feeds and resolve all article links
-- **Instant Results**: Fast processing with real-time feedback
-- **Copy & Export**: One-click copying and JSON export functionality
-- **Mobile-Friendly**: Responsive design that works on all devices
-- **Zero Setup**: No API keys or configuration required
+![RSS Redirect Resolver Screenshot](https://via.placeholder.com/800x400?text=Screenshot+Coming+Soon)
 
-## 🛠 How It Works
+## 🎯 The Problem
 
-1. **Paste URL**: Enter a Google News redirect URL or RSS feed URL
-2. **Auto-Detection**: Tool automatically detects URL type (single or feed)
-3. **Processing**: Decodes Google URLs and follows redirects to original sources
-4. **Results**: Get clean, direct URLs ready for use in your projects
+Google News RSS feeds use encoded redirect URLs that break automation tools:
 
-## 📋 Use Cases
-
-- **Data Analysts**: Clean RSS data for automation workflows
-- **Developers**: Bypass redirect URLs in scraping projects
-- **Researchers**: Get direct article links for analysis
-- **Content Creators**: Find original sources behind RSS feeds
-
-## 🔧 Technical Details
-
-### Stack
-- **Frontend**: React 18 + Vite + Tailwind CSS
-- **Backend**: Vercel Serverless Functions
-- **Parsing**: RSS-Parser library
-- **Deployment**: Vercel
-
-### API Endpoint
 ```
-POST /api/resolve
+❌ https://news.google.com/rss/articles/CBMiUmh0dHBzOi8vd3d3...
+✅ https://techcrunch.com/2024/01/15/actual-article-url
+```
+
+Instead of direct article links, you get wrapped URLs that require manual decoding and redirect following. This breaks N8N workflows, Zapier automations, and scraping projects.
+
+## ⚡ The Solution
+
+**Paste. Process. Done.**
+
+- 🔗 **Single URLs**: Decode individual Google News redirect URLs instantly
+- 📜 **RSS Feeds**: Process entire feeds and resolve all article links at once
+- 📱 **Mobile-Ready**: Works perfectly on desktop and mobile devices
+- 🚀 **Zero Setup**: No API keys, no signup, no configuration required
+- 📊 **Export Ready**: Copy all URLs or export as JSON for automation
+
+## 🛠 Perfect For
+
+- **Data Analysts**: Clean RSS data for N8N, Zapier, and automation workflows
+- **Developers**: Bypass redirect URLs in scraping and monitoring projects
+- **Researchers**: Extract original sources from RSS aggregators
+- **Content Teams**: Track media coverage and find direct article links
+
+## 🚀 Quick Start
+
+### Try It Live
+👉 **[rss-redirect-resolver.vercel.app](https://rss-redirect-resolver.vercel.app)**
+
+### Use the API
+```javascript
+const response = await fetch('/api/resolve', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    url: 'https://news.google.com/rss/articles/CBMi...',
+    type: 'single' // or 'feed'
+  })
+});
+
+const result = await response.json();
+console.log(result.resolved); // Clean article URL
+```
+
+### Self-Host
+```bash
+git clone https://github.com/YDP-Chris/rss-redirect-resolver
+cd rss-redirect-resolver
+npm install
+npm run dev
+```
+
+## 🔧 How It Works
+
+1. **URL Detection**: Automatically detects single URLs vs. RSS feeds
+2. **Google News Decoding**: Extracts original URLs from encoded Google News links
+3. **Redirect Following**: Follows HTTP redirects to final destinations
+4. **Bulk Processing**: Handles up to 50 articles per RSS feed
+5. **Error Handling**: Graceful fallback for failed resolutions
+
+## 📖 Use Cases
+
+### N8N Automation
+```json
 {
-  "url": "https://news.google.com/rss/articles/...",
-  "type": "single" | "feed"
+  "nodes": [
+    {
+      "name": "RSS Feed",
+      "type": "n8n-nodes-base.rssFeedRead"
+    },
+    {
+      "name": "Resolve URLs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "parameters": {
+        "url": "https://rss-redirect-resolver.vercel.app/api/resolve",
+        "method": "POST"
+      }
+    }
+  ]
 }
 ```
 
-### URL Resolution Process
-1. **Google News Decoding**: Extracts original URLs from encoded Google News links
-2. **Redirect Following**: Follows HTTP redirects to final destinations
-3. **Error Handling**: Graceful fallback for failed resolutions
+### Python Scraping
+```python
+import requests
 
-## 🚀 Development
+def resolve_google_news_url(url):
+    response = requests.post('https://rss-redirect-resolver.vercel.app/api/resolve',
+                           json={'url': url, 'type': 'single'})
+    return response.json()['resolved']
 
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
+# Clean article URL ready for scraping
+article_url = resolve_google_news_url('https://news.google.com/rss/articles/CBMi...')
 ```
 
-## 🌐 Deployment
+## 🏗 Tech Stack
 
-This project is configured for Vercel deployment:
-
-1. Push to GitHub repository
-2. Connect to Vercel
-3. Deploy automatically
+- **Frontend**: React 18 + Vite + Tailwind CSS
+- **Backend**: Vercel Serverless Functions
+- **RSS Processing**: RSS-Parser
+- **Deployment**: GitHub + Vercel
 
 ## 🤝 Contributing
 
-Built by [Yadkin Data Partners](https://ydp-portfolio.vercel.app) as a free tool for the developer community.
+This tool is open source and contributions are welcome!
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## 📝 License
 
-Open source - feel free to use and modify for your projects.
+Open source under the MIT License. Feel free to use and modify for your projects.
+
+## 🙏 Built With Love
+
+Created by [Yadkin Data Partners](https://ydp-portfolio.vercel.app) as a free tool for the developer community.
+
+**Need custom automation solutions?** We help data teams build workflows that actually work.
 
 ---
 
-**Need help with data automation?** Check out [Yadkin Data Partners](https://ydp-portfolio.vercel.app) for custom solutions.
+⭐ **Found this helpful?** Star the repo and share with fellow developers who've wrestled with RSS feeds!

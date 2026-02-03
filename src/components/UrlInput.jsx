@@ -57,7 +57,7 @@ function UrlInput({ onSubmit, isProcessing, onTypeChange, inputType }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="url-input" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="url-input" className="block text-sm font-medium text-slate-700 mb-2">
           Enter URL to resolve
         </label>
 
@@ -68,16 +68,16 @@ function UrlInput({ onSubmit, isProcessing, onTypeChange, inputType }) {
             value={url}
             onChange={handleUrlChange}
             placeholder="https://news.google.com/rss/articles/... or RSS feed URL"
-            className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            className="w-full px-4 py-3 pr-12 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
             disabled={isProcessing}
             required
           />
 
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
             {detectedType === 'feed' ? (
-              <Rss className="w-5 h-5 text-orange-500" />
+              <Rss className="w-5 h-5 text-warning-500" />
             ) : (
-              <Globe className="w-5 h-5 text-gray-400" />
+              <Globe className="w-5 h-5 text-slate-400" />
             )}
           </div>
         </div>
@@ -85,7 +85,7 @@ function UrlInput({ onSubmit, isProcessing, onTypeChange, inputType }) {
 
       {/* Type Selection */}
       <div className="flex items-center space-x-4">
-        <span className="text-sm font-medium text-gray-700">Process as:</span>
+        <span className="text-sm font-medium text-slate-700">Process as:</span>
 
         <label className="inline-flex items-center">
           <input
@@ -94,10 +94,10 @@ function UrlInput({ onSubmit, isProcessing, onTypeChange, inputType }) {
             value="single"
             checked={inputType === 'single'}
             onChange={(e) => handleTypeChange(e.target.value)}
-            className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+            className="h-4 w-4 text-primary-600 border-slate-300 focus:ring-primary-500"
             disabled={isProcessing}
           />
-          <span className="ml-2 text-sm text-gray-700 flex items-center">
+          <span className="ml-2 text-sm text-slate-700 flex items-center">
             <Globe className="w-4 h-4 mr-1" />
             Single URL
           </span>
@@ -110,10 +110,10 @@ function UrlInput({ onSubmit, isProcessing, onTypeChange, inputType }) {
             value="feed"
             checked={inputType === 'feed'}
             onChange={(e) => handleTypeChange(e.target.value)}
-            className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+            className="h-4 w-4 text-primary-600 border-slate-300 focus:ring-primary-500"
             disabled={isProcessing}
           />
-          <span className="ml-2 text-sm text-gray-700 flex items-center">
+          <span className="ml-2 text-sm text-slate-700 flex items-center">
             <Rss className="w-4 h-4 mr-1" />
             RSS Feed
           </span>
@@ -121,8 +121,8 @@ function UrlInput({ onSubmit, isProcessing, onTypeChange, inputType }) {
       </div>
 
       {detectedType !== inputType && (
-        <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <p className="text-sm text-yellow-800">
+        <div className="p-3 bg-warning-50 border border-warning-200 rounded-lg">
+          <p className="text-sm text-warning-800">
             💡 This looks like {detectedType === 'feed' ? 'an RSS feed' : 'a single URL'}.
             Consider selecting "{detectedType === 'feed' ? 'RSS Feed' : 'Single URL'}" for better results.
           </p>
@@ -132,7 +132,7 @@ function UrlInput({ onSubmit, isProcessing, onTypeChange, inputType }) {
       <button
         type="submit"
         disabled={!url.trim() || isProcessing}
-        className="w-full flex items-center justify-center px-4 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
+        className="w-full flex items-center justify-center px-4 py-3 bg-primary-600 hover:bg-primary-700 disabled:bg-slate-400 text-white font-medium rounded-lg transition-colors"
       >
         {isProcessing ? (
           <>
